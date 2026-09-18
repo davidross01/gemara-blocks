@@ -11,11 +11,11 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LegalIndexRouteImport } from './routes/legal.index'
-import { Route as LegalTermsRouteImport } from './routes/legal.terms'
-import { Route as LegalPrivacyRouteImport } from './routes/legal.privacy'
 import { Route as LegalCopyrightRouteImport } from './routes/legal.copyright'
-import { Route as TextMasechtaDafAmudRouteImport } from './routes/text.$masechta.$daf.$amud'
+import { Route as LegalPrivacyRouteImport } from './routes/legal.privacy'
+import { Route as LegalTermsRouteImport } from './routes/legal.terms'
 import { Route as SugyaMasechtaDafAmudRouteImport } from './routes/sugya.$masechta.$daf.$amud'
+import { Route as TextMasechtaDafAmudRouteImport } from './routes/text.$masechta.$daf.$amud'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -27,9 +27,9 @@ const LegalIndexRoute = LegalIndexRouteImport.update({
   path: '/legal/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LegalTermsRoute = LegalTermsRouteImport.update({
-  id: '/legal/terms',
-  path: '/legal/terms',
+const LegalCopyrightRoute = LegalCopyrightRouteImport.update({
+  id: '/legal/copyright',
+  path: '/legal/copyright',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LegalPrivacyRoute = LegalPrivacyRouteImport.update({
@@ -37,19 +37,19 @@ const LegalPrivacyRoute = LegalPrivacyRouteImport.update({
   path: '/legal/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LegalCopyrightRoute = LegalCopyrightRouteImport.update({
-  id: '/legal/copyright',
-  path: '/legal/copyright',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const TextMasechtaDafAmudRoute = TextMasechtaDafAmudRouteImport.update({
-  id: '/text/$masechta/$daf/$amud',
-  path: '/text/$masechta/$daf/$amud',
+const LegalTermsRoute = LegalTermsRouteImport.update({
+  id: '/legal/terms',
+  path: '/legal/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SugyaMasechtaDafAmudRoute = SugyaMasechtaDafAmudRouteImport.update({
   id: '/sugya/$masechta/$daf/$amud',
   path: '/sugya/$masechta/$daf/$amud',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TextMasechtaDafAmudRoute = TextMasechtaDafAmudRouteImport.update({
+  id: '/text/$masechta/$daf/$amud',
+  path: '/text/$masechta/$daf/$amud',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -137,11 +137,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LegalIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/legal/terms': {
-      id: '/legal/terms'
-      path: '/legal/terms'
-      fullPath: '/legal/terms'
-      preLoaderRoute: typeof LegalTermsRouteImport
+    '/legal/copyright': {
+      id: '/legal/copyright'
+      path: '/legal/copyright'
+      fullPath: '/legal/copyright'
+      preLoaderRoute: typeof LegalCopyrightRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/legal/privacy': {
@@ -151,18 +151,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LegalPrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/legal/copyright': {
-      id: '/legal/copyright'
-      path: '/legal/copyright'
-      fullPath: '/legal/copyright'
-      preLoaderRoute: typeof LegalCopyrightRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/text/$masechta/$daf/$amud': {
-      id: '/text/$masechta/$daf/$amud'
-      path: '/text/$masechta/$daf/$amud'
-      fullPath: '/text/$masechta/$daf/$amud'
-      preLoaderRoute: typeof TextMasechtaDafAmudRouteImport
+    '/legal/terms': {
+      id: '/legal/terms'
+      path: '/legal/terms'
+      fullPath: '/legal/terms'
+      preLoaderRoute: typeof LegalTermsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sugya/$masechta/$daf/$amud': {
@@ -170,6 +163,13 @@ declare module '@tanstack/react-router' {
       path: '/sugya/$masechta/$daf/$amud'
       fullPath: '/sugya/$masechta/$daf/$amud'
       preLoaderRoute: typeof SugyaMasechtaDafAmudRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/text/$masechta/$daf/$amud': {
+      id: '/text/$masechta/$daf/$amud'
+      path: '/text/$masechta/$daf/$amud'
+      fullPath: '/text/$masechta/$daf/$amud'
+      preLoaderRoute: typeof TextMasechtaDafAmudRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -187,3 +187,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
