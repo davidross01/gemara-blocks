@@ -1,0 +1,482 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+@import "@fontsource/lora/400.css";
+@import "@fontsource/lora/500.css";
+@import "@fontsource/lora/600.css";
+@import "@fontsource/lora/700.css";
+@import "@fontsource/nunito-sans/400.css";
+@import "@fontsource/nunito-sans/600.css";
+@import "@fontsource/nunito-sans/700.css";
+@import "@fontsource/frank-ruhl-libre/400.css";
+@import "@fontsource/frank-ruhl-libre/500.css";
+@import "@fontsource/frank-ruhl-libre/700.css";
+@import "reactflow/dist/style.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design system definition.
+ *
+ * The @theme inline block maps CSS custom properties to Tailwind utility
+ * classes (e.g. --color-primary -> bg-primary, text-primary).
+ *
+ * The :root and .dark blocks define the actual color values using oklch.
+ * All colors MUST use oklch format.
+ *
+ * To add a new semantic color:
+ * 1. Add the variable to :root (light value) and .dark (dark value)
+ * 2. Register it in @theme inline as --color-<name>: var(--<name>)
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --font-serif: "Lora", Georgia, ui-serif, serif;
+  --font-sans: "Nunito Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-hebrew: "Frank Ruhl Libre", "SBL Hebrew", Georgia, serif;
+  --color-paper: var(--paper);
+  --color-paper-soft: var(--paper-soft);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-rule: var(--rule);
+  --color-statement: var(--c-statement);
+  --color-question: var(--c-question);
+  --color-answer: var(--c-answer);
+  --color-proof: var(--c-proof);
+  --color-refutation: var(--c-refutation);
+  --color-story: var(--c-story);
+  --color-assumption: var(--c-assumption);
+  --color-conclusion: var(--c-conclusion);
+  --color-difficulty: var(--c-difficulty);
+  --color-inquiry: var(--c-inquiry);
+  --color-pivot: var(--c-pivot);
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(0.972 0.006 80);   /* #f5f3ee paper */
+  --foreground: oklch(0.25 0.005 80);    /* #2d2d2d ink */
+  --paper: oklch(0.972 0.006 80);
+  --paper-soft: oklch(0.95 0.012 85);
+  --paper-warm: oklch(0.97 0.018 85);  /* gemara page tint */
+  --ink: oklch(0.25 0.005 80);
+  --ink-soft: oklch(0.5 0.008 80);
+  --rule: oklch(0.89 0.008 80);
+  --c-statement:   oklch(0.55 0.2 260);   /* blue */
+  --c-question:    oklch(0.58 0.22 27);   /* red */
+  --c-answer:      oklch(0.6 0.17 150);   /* green */
+  --c-proof:       oklch(0.55 0.22 295);  /* purple */
+  --c-refutation:  oklch(0.65 0.18 50);   /* orange */
+  --c-story:       oklch(0.62 0.18 320);  /* violet */
+  --c-assumption:  oklch(0.6 0.01 80);    /* gray */
+  --c-conclusion:  oklch(0.7 0.16 85);    /* gold */
+  --c-difficulty:  oklch(0.6 0.16 70);    /* amber — kashya (soft challenge) */
+  --c-inquiry:     oklch(0.6 0.14 195);   /* teal — ba'aya (open dilemma) */
+  --c-pivot:       oklch(0.55 0.22 340);  /* magenta — אלא (structural pivot) */
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.25 0.005 80);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.25 0.005 80);
+  --primary: oklch(0.25 0.005 80);
+  --primary-foreground: oklch(0.984 0.003 247.858);
+  --secondary: oklch(0.94 0.008 80);
+  --secondary-foreground: oklch(0.25 0.005 80);
+  --muted: oklch(0.94 0.008 80);
+  --muted-foreground: oklch(0.5 0.008 80);
+  --accent: oklch(0.94 0.008 80);
+  --accent-foreground: oklch(0.25 0.005 80);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.984 0.003 247.858);
+  --border: oklch(0.89 0.008 80);
+  --input: oklch(0.89 0.008 80);
+  --ring: oklch(0.55 0.2 260);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.984 0.003 247.858);
+  --sidebar-foreground: oklch(0.129 0.042 264.695);
+  --sidebar-primary: oklch(0.208 0.042 265.755);
+  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-accent: oklch(0.968 0.007 247.896);
+  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
+  --sidebar-border: oklch(0.929 0.013 255.508);
+  --sidebar-ring: oklch(0.704 0.04 256.788);
+}
+
+.dark {
+  /* Night-learning palette: warm dark "ink" surface with parchment-tinted text
+     so the Vilna feel survives. */
+  --background: oklch(0.19 0.012 80);
+  --foreground: oklch(0.93 0.012 85);
+  --paper: oklch(0.19 0.012 80);
+  --paper-soft: oklch(0.235 0.014 80);
+  --paper-warm: oklch(0.22 0.018 70);
+  --ink: oklch(0.93 0.012 85);
+  --ink-soft: oklch(0.72 0.012 85);
+  --rule: oklch(0.34 0.012 80);
+  --c-statement:   oklch(0.72 0.16 250);
+  --c-question:    oklch(0.72 0.18 25);
+  --c-answer:      oklch(0.75 0.16 150);
+  --c-proof:       oklch(0.72 0.18 295);
+  --c-refutation:  oklch(0.78 0.16 55);
+  --c-story:       oklch(0.74 0.16 320);
+  --c-assumption:  oklch(0.72 0.01 80);
+  --c-conclusion:  oklch(0.82 0.15 85);
+  --c-difficulty:  oklch(0.78 0.15 70);
+  --c-inquiry:     oklch(0.75 0.14 195);
+  --c-pivot:       oklch(0.75 0.2 340);
+  --card: oklch(0.235 0.014 80);
+  --card-foreground: oklch(0.93 0.012 85);
+  --popover: oklch(0.235 0.014 80);
+  --popover-foreground: oklch(0.93 0.012 85);
+  --primary: oklch(0.93 0.012 85);
+  --primary-foreground: oklch(0.19 0.012 80);
+  --secondary: oklch(0.29 0.014 80);
+  --secondary-foreground: oklch(0.93 0.012 85);
+  --muted: oklch(0.29 0.014 80);
+  --muted-foreground: oklch(0.72 0.012 85);
+  --accent: oklch(0.29 0.014 80);
+  --accent-foreground: oklch(0.93 0.012 85);
+  --destructive: oklch(0.66 0.2 25);
+  --destructive-foreground: oklch(0.98 0.003 80);
+  --border: oklch(0.34 0.012 80);
+  --input: oklch(0.34 0.012 80);
+  --ring: oklch(0.72 0.16 250);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.208 0.042 265.755);
+  --sidebar-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-accent: oklch(0.279 0.041 260.031);
+  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.551 0.027 264.364);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+    letter-spacing: -0.01em;
+  }
+
+  .font-hebrew {
+    font-family: var(--font-hebrew);
+    direction: rtl;
+    line-height: 1.9;
+  }
+}
+
+/* Vilna Shas–style daf surface */
+.daf-page {
+  background: var(--paper-warm);
+  background-image:
+    radial-gradient(ellipse at top, color-mix(in oklab, var(--ink) 4%, transparent), transparent 60%),
+    radial-gradient(ellipse at bottom, color-mix(in oklab, var(--ink) 3%, transparent), transparent 70%);
+}
+
+/* In dark mode the radial overlays should subtly lighten rather than darken. */
+.dark .daf-page {
+  background-image:
+    radial-gradient(ellipse at top, color-mix(in oklab, white 4%, transparent), transparent 60%),
+    radial-gradient(ellipse at bottom, color-mix(in oklab, white 3%, transparent), transparent 70%);
+}
+
+.daf-gemara {
+  font-family: var(--font-hebrew);
+  direction: rtl;
+  text-align: justify;
+  font-size: 1.45rem;
+  line-height: 1.95;
+  letter-spacing: 0.005em;
+}
+
+.daf-rashi, .daf-tosafos {
+  font-family: var(--font-hebrew);
+  direction: rtl;
+  text-align: justify;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: color-mix(in oklab, var(--ink) 85%, transparent);
+}
+
+.gemara-segment {
+  position: relative;
+  padding: 0 2px;
+  border-radius: 3px;
+  transition: background-color 160ms ease, box-shadow 160ms ease;
+  cursor: pointer;
+}
+.gemara-segment:hover {
+  background-color: color-mix(in oklab, var(--seg-color, var(--ink)) 8%, transparent);
+}
+.gemara-segment[data-active="true"] {
+  background-color: color-mix(in oklab, var(--seg-color, var(--ink)) 18%, transparent);
+  box-shadow: inset 0 -2px 0 0 var(--seg-color, var(--ink));
+}
+
+/* Sefaria translation: <b> marks words that are a direct translation of the
+   Hebrew/Aramaic, while unbolded words are translator-added connective text.
+   Render with a slightly heavier ink color so the distinction is unmistakable
+   without feeling shouty. */
+.sefaria-translation b,
+.sefaria-translation strong {
+  font-weight: 600;
+  color: var(--ink);
+}
+.sefaria-translation {
+  color: color-mix(in oklab, var(--ink) 65%, transparent);
+}
+.sefaria-translation i,
+.sefaria-translation em {
+  font-style: italic;
+}
+
+/* ============================================================
+   Colorblind mode — augment color with patterns + borders so each
+   stage stays distinguishable. Patterns layer on top of the existing
+   color tint so users who *can* see color still get reinforcement.
+   ============================================================ */
+
+.cb-mode .gemara-segment[data-active="true"],
+.cb-mode .gemara-segment[data-show-all="true"] {
+  background-image: var(--seg-pattern, none);
+  background-size: var(--seg-pattern-size, 8px 8px);
+  border-bottom: 2px var(--seg-border-style, solid) color-mix(in oklab, var(--seg-color, var(--ink)) 70%, transparent);
+  padding-bottom: 1px;
+}
+
+.cb-mode .stage-overlay[data-active="true"],
+.cb-mode .stage-overlay[data-show-all="true"] {
+  background-image: var(--seg-pattern, none) !important;
+  background-size: var(--seg-pattern-size, 10px 10px) !important;
+  border: 2px var(--seg-border-style, solid) color-mix(in oklab, var(--seg-color, var(--ink)) 65%, transparent);
+}
+
+/* Sugya Flow nodes — overlay the same per-stage pattern so node identity
+   doesn't depend on color alone. */
+.cb-mode .flow-node {
+  background-image: var(--seg-pattern, none);
+  background-size: var(--seg-pattern-size, 10px 10px);
+  border-style: var(--seg-border-style, solid) !important;
+  border-width: 2px !important;
+  border-color: color-mix(in oklab, var(--seg-color, var(--ink)) 55%, transparent) !important;
+}
+.cb-mode .flow-node[data-active="true"] {
+  border-color: var(--seg-color, var(--ink)) !important;
+}
+
+/* Translation / SegmentPanel: stage-tinted explanation box and category badge. */
+.cb-mode .stage-tint {
+  background-image: var(--seg-pattern, none);
+  background-size: var(--seg-pattern-size, 10px 10px);
+  border: 1px var(--seg-border-style, solid) color-mix(in oklab, var(--seg-color, var(--ink)) 45%, transparent);
+}
+.cb-mode .category-badge {
+  background-image: var(--seg-pattern, none);
+  background-size: var(--seg-pattern-size, 8px 8px);
+  border-style: var(--seg-border-style, solid) !important;
+  border-width: 1.5px !important;
+}
+.cb-mode .segment-card {
+  border-style: var(--seg-border-style, solid) !important;
+  border-width: 2px !important;
+}
+
+/* BlockIllustration: layer the per-stage pattern + accent border so the
+   illustration block reinforces stage identity in colorblind mode. */
+.cb-mode .block-illustration {
+  background-image: var(--seg-pattern, none);
+  background-size: var(--seg-pattern-size, 10px 10px);
+  border: 2px var(--seg-border-style, solid) color-mix(in oklab, var(--seg-color, var(--ink)) 55%, transparent);
+  border-radius: 4px;
+}
+
+/* Colorblind readability: any text rendered on top of a colored / patterned
+   highlight gets a solid white "label" behind it so the content stays legible
+   while the surrounding stage highlight (color, gradient, pattern) is
+   preserved. Wrappers use .cb-label so only intentional text gets the
+   treatment. Uses box-decoration-break so multi-line inline text keeps the
+   rounded background on every line fragment. */
+.cb-mode .cb-label {
+  background-color: #ffffff;
+  color: #111111;
+  padding: 1px 5px;
+  border-radius: 4px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.cb-mode .cb-label b,
+.cb-mode .cb-label strong,
+.cb-mode .cb-label i,
+.cb-mode .cb-label em,
+.cb-mode .cb-label span {
+  color: inherit;
+}
+
+/* Per-category pattern recipes. Applied wherever data-cat is set, but only
+   activated visually under .cb-mode (selectors above). Keeping them on the
+   element means we can also surface the same pattern in the Legend. */
+[data-cat="STATEMENT"] {
+  --seg-color: var(--c-statement);
+  --seg-pattern: linear-gradient(135deg,
+      color-mix(in oklab, var(--c-statement) 22%, transparent),
+      color-mix(in oklab, var(--c-statement) 6%, transparent));
+  --seg-pattern-size: 100% 100%;
+  --seg-border-style: solid;
+}
+[data-cat="QUESTION"] {
+  --seg-color: var(--c-question);
+  --seg-pattern: repeating-linear-gradient(45deg,
+      color-mix(in oklab, var(--c-question) 35%, transparent) 0 3px,
+      transparent 3px 8px);
+  --seg-pattern-size: 12px 12px;
+  --seg-border-style: solid;
+}
+[data-cat="ANSWER"] {
+  --seg-color: var(--c-answer);
+  --seg-pattern: radial-gradient(circle,
+      color-mix(in oklab, var(--c-answer) 50%, transparent) 1.4px, transparent 1.8px);
+  --seg-pattern-size: 7px 7px;
+  --seg-border-style: solid;
+}
+[data-cat="PROOF"] {
+  --seg-color: var(--c-proof);
+  --seg-pattern: linear-gradient(0deg,
+      color-mix(in oklab, var(--c-proof) 55%, transparent) 0 2px,
+      transparent 2px 100%);
+  --seg-pattern-size: 100% 6px;
+  --seg-border-style: double;
+}
+[data-cat="REFUTATION"] {
+  --seg-color: var(--c-refutation);
+  --seg-pattern:
+    repeating-linear-gradient(45deg,
+      color-mix(in oklab, var(--c-refutation) 32%, transparent) 0 2px, transparent 2px 7px),
+    repeating-linear-gradient(-45deg,
+      color-mix(in oklab, var(--c-refutation) 32%, transparent) 0 2px, transparent 2px 7px);
+  --seg-pattern-size: 10px 10px;
+  --seg-border-style: solid;
+}
+[data-cat="STORY"] {
+  --seg-color: var(--c-story);
+  --seg-pattern: repeating-linear-gradient(-45deg,
+      color-mix(in oklab, var(--c-story) 28%, transparent) 0 2px,
+      transparent 2px 9px);
+  --seg-pattern-size: 12px 12px;
+  --seg-border-style: dotted;
+}
+[data-cat="ASSUMPTION"] {
+  --seg-color: var(--c-assumption);
+  --seg-pattern: repeating-linear-gradient(90deg,
+      color-mix(in oklab, var(--c-assumption) 35%, transparent) 0 4px,
+      transparent 4px 9px);
+  --seg-pattern-size: 13px 13px;
+  --seg-border-style: dashed;
+}
+[data-cat="CONCLUSION"] {
+  --seg-color: var(--c-conclusion);
+  --seg-pattern: linear-gradient(0deg,
+      color-mix(in oklab, var(--c-conclusion) 60%, transparent) 0 1.5px,
+      transparent 1.5px 3px,
+      color-mix(in oklab, var(--c-conclusion) 60%, transparent) 3px 4.5px,
+      transparent 4.5px 100%);
+  --seg-pattern-size: 100% 7px;
+  --seg-border-style: double;
+}
+/* DIFFICULTY (kashya) — a soft "wavy" pattern to signal a challenge that
+   left the position weakened but standing. Visually adjacent to REFUTATION
+   (same warm hue family) but lighter and less aggressive. */
+[data-cat="DIFFICULTY"] {
+  --seg-color: var(--c-difficulty);
+  --seg-pattern: repeating-linear-gradient(45deg,
+      color-mix(in oklab, var(--c-difficulty) 28%, transparent) 0 2px,
+      transparent 2px 10px);
+  --seg-pattern-size: 14px 14px;
+  --seg-border-style: dashed;
+}
+/* INQUIRY (ba'aya) — an open, "waiting" pattern with a cool teal to
+   distinguish it from the warm-hued challenge family. */
+[data-cat="INQUIRY"] {
+  --seg-color: var(--c-inquiry);
+  --seg-pattern: radial-gradient(circle,
+      color-mix(in oklab, var(--c-inquiry) 45%, transparent) 1.5px, transparent 2px),
+    radial-gradient(circle,
+      color-mix(in oklab, var(--c-inquiry) 25%, transparent) 1px, transparent 1.5px);
+  --seg-pattern-size: 10px 10px, 5px 5px;
+  --seg-border-style: dotted;
+}
+/* PIVOT (אלא) — a directional stripe evoking the structural break: the
+   prior line is discarded and a new one installed. */
+[data-cat="PIVOT"] {
+  --seg-color: var(--c-pivot);
+  --seg-pattern: repeating-linear-gradient(90deg,
+      color-mix(in oklab, var(--c-pivot) 45%, transparent) 0 3px,
+      transparent 3px 11px);
+  --seg-pattern-size: 14px 100%;
+  --seg-border-style: solid;
+}
+
+/* "Show all stages" — visible tint for every segment, not just the active
+   one. The active segment keeps its stronger outline + 18% fill from the
+   base rule above. */
+.gemara-segment[data-show-all="true"]:not([data-active="true"]) {
+  background-color: color-mix(in oklab, var(--seg-color, var(--ink)) 10%, transparent);
+}
+.stage-overlay[data-show-all="true"]:not([data-active="true"]) {
+  background-color: color-mix(in oklab, var(--seg-color, var(--ink)) 14%, transparent) !important;
+}
